@@ -4,14 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "predev": "prisma generate --schema prisma/schema.prisma",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "db:dev": "prisma dev",
+    "db:migrate": "prisma migrate dev",
+    "db:migrate:init": "prisma migrate dev --name init_leads",
+    "db:reset": "prisma migrate reset",
+    "db:studio": "prisma studio",
+    "db:generate": "prisma generate"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^6",
     "cors": "^2.8.6",
     "express": "^5.2.1"
   },
@@ -19,6 +27,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^20",
+    "prisma": "^6",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.3"
   }
