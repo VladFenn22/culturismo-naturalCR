@@ -19,9 +19,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@clerk/nextjs": "^6.37.1",
     "@prisma/client": "^6",
     "cors": "^2.8.6",
-    "express": "^5.2.1"
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "stripe": "^20.3.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",

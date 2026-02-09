@@ -14,20 +14,50 @@ datasource db {
 }
 
 model Lead {
-  id              String   @id @default(cuid())
-  createdAt       DateTime @default(now())
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
 
-  nombre          String
-  email           String
-  whatsapp        String
+  nombre   String
+  email    String
+  whatsapp String
 
-  objetivo        String
-  experiencia     String
-  disponibilidad  String
+  objetivo       String
+  experiencia    String
+  disponibilidad String
 
-  lesiones        String?
-  mensaje         String?
+  lesiones String?
+  mensaje  String?
 
-  source          String?
-  status          String   @default("new")
+  source String?
+  status String  @default("new") // new | contacted | approved | rejected
+
+  inviteToken String?   @unique
+  invitedAt   DateTime?
+
+  approvedAt DateTime?
+  profiles   Profile[]
 }
+
+model Profile {
+  id        String   @id // clerk user id
+  createdAt DateTime @default(now())
+
+  role   String // coach | client
+  email  String
+  leadId String?
+  lead   Lead?   @relation(fields: [leadId], references: [id])
+}
+
+model Subscription {
+  id                   String   @id @default(cuid())
+  createdAt            DateTime @default(now())
+
+  userId               String
+  status               String
+  stripeCustomerId     String?
+  stripeSubscriptionId String?  @unique
+  currentPeriodEnd     DateTime?
+
+  @@index([userId])
+}
+

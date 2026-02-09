@@ -4,7 +4,7 @@ import Navbar from "../../components/Navbar";
 const paquetes = [
     {
         name: "Base (Hábitos + Progreso)",
-        price: "Desde ₡xx/mes",
+        price: "Desde ₡15.000/mes",
         highlight: "Ideal para personas ocupadas",
         items: [
             "Plan de entrenamiento personalizado",
@@ -15,7 +15,7 @@ const paquetes = [
     },
     {
         name: "Coaching Completo",
-        price: "Desde ₡xx/mes",
+        price: "Desde ₡20.000/mes",
         highlight: "El más recomendado",
         featured: true,
         items: [
@@ -28,7 +28,7 @@ const paquetes = [
     },
     {
         name: "Competencia Natural",
-        price: "Desde ₡xx/mes",
+        price: "Desde ₡25.000/mes",
         highlight: "Para tarima y peak week",
         items: [
             "Plan completo orientado a competencia",
@@ -59,7 +59,7 @@ export default function ServiciosPage() {
 
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                     <Link
-                        href="/sign-up"
+                        href="/aplicar"
                         className="inline-flex items-center justify-center rounded-xl bg-[#0B2A6F] px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
                     >
                         Quiero aplicar
