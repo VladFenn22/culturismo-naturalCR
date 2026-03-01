@@ -348,11 +348,7 @@ export default async function BillingPage({
                         value={active ? "Activa ✅" : "Inactiva"}
                         hint={`Stripe: ${status}`}
                     />
-                    <StatCard
-                        label="Vence"
-                        value={periodEnd ?? "—"}
-                        hint="Periodo actual"
-                    />
+     
                     <StatCard
                         label="Acceso"
                         value={active ? "Habilitado" : "Bloqueado"}

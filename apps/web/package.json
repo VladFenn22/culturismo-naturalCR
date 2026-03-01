@@ -11,6 +11,7 @@
   "dependencies": {
     "@clerk/localizations": "^3.35.3",
     "@clerk/nextjs": "^6.37.1",
+    "lucide-react": "^0.563.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3"

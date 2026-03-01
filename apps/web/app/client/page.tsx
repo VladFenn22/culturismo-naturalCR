@@ -11,6 +11,8 @@ async function hasActiveSub(userId: string) {
     return Boolean(j?.ok && j?.active);
 }
 
+
+
 export default async function ClientHome({
     searchParams,
 }: {
@@ -36,7 +38,7 @@ export default async function ClientHome({
             </p>
 
             <div style={{ marginTop: 16 }}>
-                <Link href="/app">Volver</Link>
+                <Link href="/app/client">Volver</Link>
             </div>
         </main>
     );

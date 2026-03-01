@@ -205,7 +205,7 @@ app.post("/billing/checkout", async (req, res) => {
             mode: "subscription",
             line_items: [{ price: priceId, quantity: 1 }],
             success_url: `${process.env.APP_BASE_URL}/app/client?success=1`,
-            cancel_url: `${process.env.APP_BASE_URL}/app/client/billing?canceled=1`,
+            cancel_url: `${process.env.APP_BASE_URL}/client/billing?canceled=1`,
             metadata: { clerkUserId, plan: chosenPlan },
         });
 
@@ -238,6 +238,79 @@ app.get("/me/subscription", async (req, res) => {
         currentPeriodEnd: sub?.currentPeriodEnd ?? null,
     });
 });
+
+// ✅ 5) Consultar perfil del cliente
+app.get("/me/profile", async (req, res) => {
+    try {
+        const userId = String(req.query.userId || "");
+        if (!userId) return res.status(400).json({ ok: false, error: "missing_userId" });
+
+        const profile = await prisma.clientProfile.findUnique({
+            where: { clerkUserId: userId },
+        });
+
+        return res.json({ ok: true, profile });
+    } catch (e) {
+        console.error("GET_PROFILE_ERROR:", e);
+        return res.status(500).json({ ok: false, error: "get_profile_failed" });
+    }
+});
+
+// ✅ 5) Subir detalles perfil del cliente
+app.post("/me/profile", async (req, res) => {
+    try {
+        const {
+            userId,
+            alturaCm,
+            pesoKg,
+            meta,
+            experiencia,
+            lesiones,
+            disponibilidad,
+        } = req.body as {
+            userId?: string;
+            alturaCm?: number | string;
+            pesoKg?: number | string;
+            meta?: string;
+            experiencia?: string;
+            lesiones?: string;
+            disponibilidad?: string;
+        };
+
+        if (!userId) return res.status(400).json({ ok: false, error: "missing_userId" });
+
+        const altura = alturaCm === "" || alturaCm == null ? null : Number(alturaCm);
+        const peso = pesoKg === "" || pesoKg == null ? null : Number(pesoKg);
+
+        const profile = await prisma.clientProfile.upsert({
+            where: { clerkUserId: userId },
+            update: {
+                alturaCm: Number.isFinite(altura) ? Math.round(altura as number) : null,
+                pesoKg: Number.isFinite(peso) ? peso : null,
+                meta: meta ?? null,
+                experiencia: experiencia ?? null,
+                lesiones: lesiones ?? null,
+                disponibilidad: disponibilidad ?? null,
+            },
+            create: {
+                clerkUserId: userId,
+                alturaCm: Number.isFinite(altura) ? Math.round(altura as number) : null,
+                pesoKg: Number.isFinite(peso) ? peso : null,
+                meta: meta ?? null,
+                experiencia: experiencia ?? null,
+                lesiones: lesiones ?? null,
+                disponibilidad: disponibilidad ?? null,
+            },
+        });
+
+        return res.json({ ok: true, profile });
+    } catch (e) {
+        console.error("UPSERT_PROFILE_ERROR:", e);
+        return res.status(500).json({ ok: false, error: "upsert_profile_failed" });
+    }
+});
+
+
 
 
 app.post("/leads", async (req, res) => {

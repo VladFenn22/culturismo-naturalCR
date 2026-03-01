@@ -21,8 +21,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                                 </div>
                             </div>
                             <div className="flex items-center gap-4">
-                                <Link className="text-sm text-gray-600 hover:text-gray-900" href="/app/client/billing">
-                                    Billing
+                                <Link className="text-sm text-gray-600 hover:text-gray-900" href="/client/billing">
+                                    Suscripción & pagos
                                 </Link>
                                 <UserButton afterSignOutUrl="/" />
                             </div>

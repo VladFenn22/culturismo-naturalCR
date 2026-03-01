@@ -7,5 +7,8 @@
 		"dev:api": "pnpm --filter api dev",
 		"dev:mobile": "pnpm --filter mobile start",
 		"dev": "pnpm -r --parallel dev"
+	},
+	"dependencies": {
+		"lucide-react": "^0.263.0"
 	}
 }
